@@ -25,8 +25,8 @@ import SideBarRow from './SideBarRow';
 function SideBar() {
 
     const [session,loading]=useSession();
-    console.log("In here");
-    console.log(session.user.name);
+    // console.log("In here");
+    // console.log(session.user.name);
     const image=session.user.image;
 
     return (

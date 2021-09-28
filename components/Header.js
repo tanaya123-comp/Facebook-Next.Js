@@ -20,8 +20,8 @@ import { session, signOut,useSession } from "next-auth/client"
 function Header() {
 
     const sessionuser=useSession();
-    console.log("here");
-    console.log(sessionuser);
+    // console.log("here");
+    // console.log(sessionuser);
     session=sessionuser[0];
 
     return (
