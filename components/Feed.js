@@ -4,7 +4,7 @@ import InputBox from './InputBox'
 
 function Feed() {
     return (
-        <div className="flex-grow h-screen pb-44 pt-6">
+        <div className="flex-grow  pb-44 pt-6 justify-center">
                 {/* Stories */}
                 <Stories/>
 

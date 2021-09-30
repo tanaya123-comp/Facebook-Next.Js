@@ -3,30 +3,82 @@ import Image from 'next/image'
 import { useSession } from 'next-auth/client'
 import { CameraIcon, VideoCameraIcon } from "@heroicons/react/solid"
 import { EmojiHappyIcon } from "@heroicons/react/outline";
-import { useRef } from 'react'
-import {db} from '../firebase'
+import { useRef,useState } from 'react'
+import axios from 'axios';
+// import { delBasePath } from 'next/dist/shared/lib/router/router';
+// import {db} from '../firebase'
+// // import { collection } from 'firebase/firestore/lite';
 
 function InputBox() {
 
-    const session=useSession();
-    console.log(session);
+    const session = useSession();
+    //console.log(session);
     const inputRef=useRef(null);
+    const filepickerRef=useRef(null);
+    const [imageToPost,setImageToPost]=useState(null);
+
+    const addImageToPost=(e)=>{
+        console.log("In add Image to post");
+        const reader=new FileReader();
+        if(e.target.files[0]){
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        reader.onload=(readerEvent)=>{
+            setImageToPost(readerEvent.target.result);
+        };
+
+    };
+
+    const removeImage=()=>
+    {
+        setImageToPost(null);
+    }
 
     const sendPost=(e)=>{
 
         e.preventDefault();
 
-        if(!inputRef.current.value) return;
+        // if(!inputRef.current.value) return;
 
-        db.collection('posts').add({
+        // db.collection.add({
+        //     message:inputRef.current.value,
+        //     name:session[0].user.name,
+        //     email:session[0].user.email,
+        //     image:session[0].user.image,
+        //     //timestamp:firebase.firestore.FieldValue.serverTimestamp()
+        // })
+
+        
+        //Get Request
+        // axios.get('http://localhost:8000/posts')
+        // .then(response => response.data)
+        // .then((data) => {
+        //     console.log(data)
+        //    })
+
+
+        //Post Request
+        const json = JSON.stringify({ 
             message:inputRef.current.value,
             name:session[0].user.name,
             email:session[0].user.email,
             image:session[0].user.image,
-            timestamp:firebase.firestore.FieldValue.serverTimestamp()
-        })
+         });
 
-        inputRef.current.value="";
+          fetch("http://localhost:4200/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: json
+    }).then(
+        inputRef.current.value=""
+    );
+
+
+
+      
 
 
     }
@@ -54,6 +106,16 @@ function InputBox() {
 
                 </form>
 
+                {imageToPost && 
+                    (
+                        <div onClick={removeImage} className="flex flex-col filter
+                         hover:brightness-110 transition duration-150 transform hover:scale-105 cursor:pointer">
+                            <img className="h-10 object-contain" src={imageToPost} alt=""/>
+                            <p className="text-xs text-red-500">Remove</p>
+                        </div>
+                    )
+                }
+
 
             </div>
 
@@ -64,9 +126,16 @@ function InputBox() {
                 <p className="text-xs sm:text-sm xl:text-base">Live Video</p>
                 </div>
 
-                <div className="inputIcon">
+
+                <div onClick={() => filepickerRef.current.click()} className="inputIcon">
                 <CameraIcon className="h-7 text-green-400" />
                 <p className="text-xs sm:text-sm xl:text-base">Photo/Video</p>
+                <input
+                 onChange={addImageToPost}
+                 ref={filepickerRef}
+                 type="file"
+                 hidden
+                />
                 </div>
 
                 <div className="inputIcon">

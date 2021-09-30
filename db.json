@@ -1,0 +1,26 @@
+{
+  "posts": [
+    {
+      "message": "Hello",
+      "name": "Tanaya",
+      "email": "tanayawankar58@gmail.com",
+      "id": 1
+    },
+    {
+      "message": "hello",
+      "name": "Tanaya Wankar",
+      "email": "tanayawankar58@gmail.com",
+      "image": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1441301376270419&height=50&width=50&ext=1635520416&hash=AeQA1eRt38g3Q4cXJ3A",
+      "id": 2
+    }
+  ],
+  "stories": [
+    {
+      "message": "hi",
+      "name": "Tanaya Wankar",
+      "email": "tanayawankar58@gmail.com",
+      "image": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1441301376270419&height=50&width=50&ext=1635520416&hash=AeQA1eRt38g3Q4cXJ3A",
+      "id": 1
+    }
+  ]
+}
